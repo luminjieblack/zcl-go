@@ -77,9 +77,34 @@ type StartWarning struct {
 	WarningControl  uint8
 	WarningDuration uint16
 	StrobeDutyCycle uint8
-	StrobeLevel     uint8
+	StrobeLevel     int8
 }
 
 type Squark struct {
 	SquarkControl uint8
+}
+
+type ZoneEnrollResponseCommand struct {
+	ResponseCode uint8
+	ZoneID       uint8
+}
+
+type InitiateNormalOperationModeCommand struct {
+}
+
+type InitiateTestModeCommand struct {
+	TestModeDuration            uint8
+	CurrentZoneSensitivityLevel uint8
+}
+
+type ZoneStatusChangeNotificationCommand struct {
+	ZoneStatus     uint16
+	ExtendedStatus uint8
+	ZoneID         uint8
+	Delay          uint16
+}
+
+type ZoneEnrollRequestCommand struct {
+	ZoneType         uint16
+	ManufacturerCode uint16
 }

@@ -47,6 +47,7 @@ const (
 	LevelControl                   ClusterId = 0x0008
 	MultistateInput                ClusterId = 0x0012
 	OTA                            ClusterId = 0x0019
+	IASZone                        ClusterId = 0x0500
 	IASWarningDevice               ClusterId = 0x0502
 )
 
@@ -232,14 +233,37 @@ func New() *ClusterLibrary {
 					0x000a: {"ImageStamp ", ZclDataTypeUint32, Read},
 				},
 			},
-			IASWarningDevice: {
-				Name: "IAS Warning Device",
+			IASZone: {
+				Name: "IAS Zone",
 				AttributeDescriptors: map[uint16]*AttributeDescriptor{
-					0x0000: { "MaxDuration", ZclDataTypeUint16, Read | Write},
+					0x0000: {"ZoneState", ZclDataTypeEnum8, Read},
+					0x0001: {"ZoneType", ZclDataTypeEnum16, Read},
+					0x0002: {"ZoneStatus", ZclDataTypeBitmap16, Read},
+					0x0010: {"IAS_CIE_Address", ZclDataTypeIeeeAddr, Read | Write},
+					0x0011: {"ZoneID", ZclDataTypeUint8, Read},
+					0x0012: {"NumberOfZoneSensitivityLevelsSupported", ZclDataTypeUint8, Read},
+					0x0013: {"CurrentZoneSensitivityLevel", ZclDataTypeUint8, Read | Write},
 				},
 				CommandDescriptors: &CommandDescriptors{
 					Received: map[uint8]*CommandDescriptor{
-						0x00: {"Start Warning", &StartWarning{}},
+						0x00: {"ZoneEnrollResponse", &ZoneEnrollResponseCommand{}},
+						0x01: {"InitiateNormalOperationMode", &InitiateNormalOperationModeCommand{}},
+						0x02: {"InitiateTestMode", &InitiateTestModeCommand{}},
+					},
+					Generated: map[uint8]*CommandDescriptor{
+						0x00: {"ZoneStatusChangeNotification", &ZoneStatusChangeNotificationCommand{}},
+						0x01: {"ZoneEnrollRequest", &ZoneEnrollRequestCommand{}},
+					},
+				},
+			},
+			IASWarningDevice: {
+				Name: "IAS Warning Device",
+				AttributeDescriptors: map[uint16]*AttributeDescriptor{
+					0x0000: {"MaxDuration", ZclDataTypeUint16, Read | Write},
+				},
+				CommandDescriptors: &CommandDescriptors{
+					Received: map[uint8]*CommandDescriptor{
+						0x00: {"StartWarning", &StartWarning{}},
 						0x01: {"Squawk", &Squark{}},
 					},
 				},

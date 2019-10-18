@@ -47,6 +47,7 @@ const (
 	LevelControl                   ClusterId = 0x0008
 	MultistateInput                ClusterId = 0x0012
 	OTA                            ClusterId = 0x0019
+	IASWarningDevice               ClusterId = 0x0502
 )
 
 func New() *ClusterLibrary {
@@ -229,6 +230,18 @@ func New() *ClusterLibrary {
 					0x0008: {"ImageTypeID ", ZclDataTypeUint16, Read},
 					0x0009: {"MinimumBlockPeriod ", ZclDataTypeUint16, Read},
 					0x000a: {"ImageStamp ", ZclDataTypeUint32, Read},
+				},
+			},
+			IASWarningDevice: {
+				Name: "IAS Warning Device",
+				AttributeDescriptors: map[uint16]*AttributeDescriptor{
+					0x0000: { "MaxDuration", ZclDataTypeUint16, Read | Write},
+				},
+				CommandDescriptors: &CommandDescriptors{
+					Received: map[uint8]*CommandDescriptor{
+						0x00: {"Start Warning", &StartWarning{}},
+						0x01: {"Squawk", &Squark{}},
+					},
 				},
 			},
 		},

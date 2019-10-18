@@ -72,3 +72,14 @@ type StepOnOffCommand struct {
 }
 
 type StopOnOffCommand struct{}
+
+type StartWarning struct {
+	WarningControl  uint8
+	WarningDuration uint16
+	StrobeDutyCycle uint8
+	StrobeLevel     uint8
+}
+
+type Squark struct {
+	SquarkControl uint8
+}

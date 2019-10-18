@@ -84,7 +84,7 @@ type Squark struct {
 	SquarkControl uint8
 }
 
-type ZoneEnrollResponseCommand struct {
+type ZoneEnrollResponse struct {
 	ResponseCode uint8
 	ZoneID       uint8
 }
@@ -104,7 +104,97 @@ type ZoneStatusChangeNotificationCommand struct {
 	Delay          uint16
 }
 
-type ZoneEnrollRequestCommand struct {
+type ZoneEnrollCommand struct {
 	ZoneType         uint16
 	ManufacturerCode uint16
+}
+
+type ArmCommand struct {
+	ArmMode       uint8
+	ArmDisarmCode string
+	ZoneID        uint8
+}
+
+type BypassCommand struct {
+	NumberOfZones uint8
+	ZoneID        []uint8
+	ArmDisarmCode string
+}
+
+type EmergencyCommand struct{}
+
+type FireCommand struct{}
+
+type PanicCommand struct{}
+
+type GetZoneIDMapCommand struct{}
+
+type GetZoneInformationCommand struct {
+	ZoneID uint8
+}
+type GetPanelStatusCommand struct{}
+
+type GetBypassedZoneListCommand struct{}
+
+type GetZoneStatus struct {
+	StartingZoneID     uint8
+	MaxNumberZoneIDs   uint8
+	ZoneStatusMaskFlag bool
+	ZoneStatusMask     uint16
+}
+
+type ArmResponse struct {
+	ArmNotification uint8
+}
+
+type GetZoneIDMapResponse struct {
+	ZoneIDMapSection0  uint16
+	ZoneIDMapSection1  uint16
+	ZoneIDMapSection2  uint16
+	ZoneIDMapSection3  uint16
+	ZoneIDMapSection4  uint16
+	ZoneIDMapSection5  uint16
+	ZoneIDMapSection6  uint16
+	ZoneIDMapSection7  uint16
+	ZoneIDMapSection8  uint16
+	ZoneIDMapSection9  uint16
+	ZoneIDMapSection10 uint16
+	ZoneIDMapSection11 uint16
+	ZoneIDMapSection12 uint16
+	ZoneIDMapSection13 uint16
+	ZoneIDMapSection14 uint16
+	ZoneIDMapSection15 uint16
+}
+
+type GetZoneInformationResponse struct {
+	ZoneId      uint8
+	ZoneType    uint16
+	IEEEAddress [6]byte
+	ZoneLabel   string
+}
+
+type ZoneStatusChanged struct {
+	ZoneId              uint8
+	ZoneStatus          uint16
+	AudibleNotification uint8
+	ZoneLabel           string
+}
+
+type PanelStatusChanged struct {
+	PanelStatus         uint8
+	SecondsRemaining    uint8
+	AudibleNotification uint8
+	AlarmStatus         uint8
+}
+
+type BypassedZoneList struct {
+	NumberOfZones uint8
+	ZoneID        []uint8
+}
+
+type GetZoneStatusResponse struct {
+	ZoneStatusComplete bool
+	NumberOfZones      uint8
+	ZoneID             []uint16
+	ZoneStatus         []uint16
 }

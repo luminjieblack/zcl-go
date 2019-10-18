@@ -48,6 +48,7 @@ const (
 	MultistateInput                ClusterId = 0x0012
 	OTA                            ClusterId = 0x0019
 	IASZone                        ClusterId = 0x0500
+	IASACE                         ClusterId = 0x0501
 	IASWarningDevice               ClusterId = 0x0502
 )
 
@@ -246,13 +247,41 @@ func New() *ClusterLibrary {
 				},
 				CommandDescriptors: &CommandDescriptors{
 					Received: map[uint8]*CommandDescriptor{
-						0x00: {"ZoneEnrollResponse", &ZoneEnrollResponseCommand{}},
+						0x00: {"ZoneEnrollResponse", &ZoneEnrollResponse{}},
 						0x01: {"InitiateNormalOperationMode", &InitiateNormalOperationModeCommand{}},
 						0x02: {"InitiateTestMode", &InitiateTestModeCommand{}},
 					},
 					Generated: map[uint8]*CommandDescriptor{
 						0x00: {"ZoneStatusChangeNotification", &ZoneStatusChangeNotificationCommand{}},
-						0x01: {"ZoneEnrollRequest", &ZoneEnrollRequestCommand{}},
+						0x01: {"ZoneEnrollRequest", &ZoneEnrollCommand{}},
+					},
+				},
+			},
+			IASACE: {
+				Name: "IAS Ancillary Control Equipment",
+				CommandDescriptors: &CommandDescriptors{
+					Received: map[uint8]*CommandDescriptor{
+						0x00: {"Arm", &ArmCommand{}},
+						0x01: {"Bypass", &BypassCommand{}},
+						0x02: {"Emergency", &EmergencyCommand{}},
+						0x03: {"Fire", &FireCommand{}},
+						0x04: {"Panic", &PanicCommand{}},
+						0x05: {"GetZoneIDMap", &GetZoneIDMapCommand{}},
+						0x06: {"GetZoneInformation", &GetZoneInformationCommand{}},
+						0x07: {"GetPanelStatus", &GetPanelStatusCommand{}},
+						0x08: {"GetBypassedZoneList", &GetBypassedZoneListCommand{}},
+						0x09: {"GetZoneStatus", &GetZoneStatus{}},
+					},
+					Generated: map[uint8]*CommandDescriptor{
+						0x00: {"ArmResponse", &ArmResponse{}},
+						0x01: {"GetZoneIDMapResponse", &GetZoneIDMapResponse{}},
+						0x02: {"GetZoneInformationResponse", &GetZoneInformationResponse{}},
+						0x03: {"ZoneStatusChanged", &ZoneStatusChanged{}},
+						0x04: {"PanelStatusChanged", &PanelStatusChanged{}},
+						0x05: {"GetPanelStatusResponse", &PanelStatusChanged{}},
+						0x06: {"SetBypassedZoneList", &BypassedZoneList{}},
+						0x07: {"BypassResponse", &BypassedZoneList{}},
+						0x08: {"GetZoneStatusResponse", &GetZoneStatusResponse{}},
 					},
 				},
 			},

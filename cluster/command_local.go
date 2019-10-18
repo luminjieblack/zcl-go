@@ -77,7 +77,7 @@ type StartWarning struct {
 	WarningControl  uint8
 	WarningDuration uint16
 	StrobeDutyCycle uint8
-	StrobeLevel     int8
+	StrobeLevel     uint8
 }
 
 type Squark struct {

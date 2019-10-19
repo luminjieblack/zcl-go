@@ -45,6 +45,7 @@ const (
 	Identify                       ClusterId = 0x0003
 	OnOff                          ClusterId = 0x0006
 	LevelControl                   ClusterId = 0x0008
+	Time                           ClusterId = 0x000a
 	MultistateInput                ClusterId = 0x0012
 	OTA                            ClusterId = 0x0019
 	IlluminanceMeasurement         ClusterId = 0x0400
@@ -211,6 +212,21 @@ func New() *ClusterLibrary {
 						0x06: {"Step/OnOff", &StepOnOffCommand{}},
 						0x07: {"Stop/OnOff", &StopOnOffCommand{}},
 					},
+				},
+			},
+			Time: {
+				Name: "Time",
+				AttributeDescriptors: map[uint16]*AttributeDescriptor{
+					0x0000: {"Time", ZclDataTypeUtc, Read | Write},
+					0x0001: {"TimeStatus", ZclDataTypeBitmap8, Read | Write},
+					0x0002: {"TimeZone", ZclDataTypeInt32, Read | Write},
+					0x0003: {"DstStart", ZclDataTypeUint32, Read | Write},
+					0x0004: {"DstEnd", ZclDataTypeUint32, Read | Write},
+					0x0005: {"DstShift", ZclDataTypeInt32, Read | Write},
+					0x0006: {"StandardTime", ZclDataTypeUint32, Read},
+					0x0007: {"LocalTime", ZclDataTypeUint32, Read},
+					0x0008: {"LastSetTime", ZclDataTypeUtc, Read},
+					0x0009: {"ValidUntilTime", ZclDataTypeUtc, Read | Write},
 				},
 			},
 			MultistateInput: {

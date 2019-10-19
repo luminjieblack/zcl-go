@@ -293,3 +293,117 @@ type RemoveGroupResponse struct {
 	Status  uint8
 	GroupID uint16
 }
+
+type AddSceneCommand struct {
+	GroupID        uint16
+	SceneID        uint8
+	TransitionTime uint16
+	SceneName      string
+}
+
+type ViewSceneCommand struct {
+	GroupID uint16
+	SceneID uint8
+}
+
+type RemoveSceneCommand struct {
+	GroupID uint16
+	SceneID uint8
+}
+
+type RemoveAllScenesCommand struct {
+	GroupID uint16
+}
+
+type StoreSceneCommand struct {
+	GroupID uint16
+	SceneID uint8
+}
+
+type RecallSceneCommand struct {
+	GroupID uint16
+	SceneID uint8
+}
+
+type GetSceneMembership struct {
+	GroupID uint16
+}
+
+type EnhancedAddSceneCommand struct {
+	GroupID        uint16
+	SceneID        uint8
+	TransitionTime uint16
+	SceneName      string
+}
+
+type EnhancedViewSceneCommand struct {
+	GroupID uint16
+	SceneID uint8
+}
+
+type CopySceneCommand struct {
+	Mode        uint8
+	FromGroupID uint16
+	FromSceneID uint16
+	ToGroupID   uint16
+	ToSceneID   uint16
+}
+
+type AddSceneResponse struct {
+	Status  uint8
+	GroupID uint16
+	SceneID uint8
+}
+
+type ViewSceneResponse struct {
+	Status         uint8
+	GroupID        uint16
+	SceneID        uint8
+	TransitionTime uint16
+	SceneName      string
+}
+
+type RemoveSceneResponse struct {
+	Status  uint8
+	GroupID uint16
+	SceneID uint8
+}
+
+type RemoveAllScenesResponse struct {
+	Status  uint8
+	GroupID uint16
+}
+
+type StoreSceneResponse struct {
+	Status  uint8
+	GroupID uint16
+	SceneID uint8
+}
+
+type GetSceneMembershipResponse struct {
+	Status     uint8
+	Capacity   uint8
+	GroupID    uint16
+	SceneCount uint8
+	SceneList  []uint8
+}
+
+type EnhancedAddSceneResponse struct {
+	Status  uint8
+	GroupID uint16
+	SceneID uint8
+}
+
+type EnhancedViewSceneResponse struct {
+	Status         uint8
+	GroupID        uint16
+	SceneID        uint8
+	TransitionTime uint16
+	SceneName      string
+}
+
+type CopySceneResponse struct {
+	Status      uint8
+	FromGroupID uint16
+	FromSceneID uint8
+}

@@ -44,6 +44,7 @@ const (
 	DeviceTemperatureConfiguration ClusterId = 0x0002
 	Identify                       ClusterId = 0x0003
 	Groups                         ClusterId = 0x0004
+	Scenes                         ClusterId = 0x0005
 	OnOff                          ClusterId = 0x0006
 	LevelControl                   ClusterId = 0x0008
 	Alarms                         ClusterId = 0x0009
@@ -194,6 +195,42 @@ func New() *ClusterLibrary {
 						0x01: {"ViewGroupResponse", &ViewGroupResponse{}},
 						0x02: {"GetGroupMembershipResponse", &GetGroupMembershipResponse{}},
 						0x03: {"RemoveGroupResponse", &RemoveGroupResponse{}},
+					},
+				},
+			},
+			Scenes: {
+				Name: "Scenes",
+				AttributeDescriptors: map[uint16]*AttributeDescriptor{
+					0x0000: {"SceneCount", ZclDataTypeUint8, Read},
+					0x0001: {"CurrentScene", ZclDataTypeUint8, Read},
+					0x0002: {"CurrentGroup", ZclDataTypeUint16, Read},
+					0x0003: {"SceneValid", ZclDataTypeBoolean, Read},
+					0x0004: {"NameSupport", ZclDataTypeBitmap8, Read},
+					0x0005: {"LastConfiguredBy", ZclDataTypeIeeeAddr, Read},
+				},
+				CommandDescriptors: &CommandDescriptors{
+					Received: map[uint8]*CommandDescriptor{
+						0x00: {"AddScene", &AddSceneCommand{}},
+						0x01: {"ViewScene", &ViewSceneCommand{}},
+						0x02: {"RemoveScene", &RemoveSceneCommand{}},
+						0x03: {"RemoveAllScenes", &RemoveAllScenesCommand{}},
+						0x04: {"StoreScene", &StoreSceneCommand{}},
+						0x05: {"RecallScene", &RecallSceneCommand{}},
+						0x06: {"GetSceneMembership", &GetSceneMembership{}},
+						0x40: {"EnhancedAddScene", &EnhancedAddSceneCommand{}},
+						0x41: {"EnhancedViewScene", &EnhancedViewSceneCommand{}},
+						0x42: {"CopyScene", &CopySceneCommand{}},
+					},
+					Generated: map[uint8]*CommandDescriptor{
+						0x00: {"AddSceneResponse", &AddSceneResponse{}},
+						0x01: {"ViewSceneResponse", &ViewSceneResponse{}},
+						0x02: {"RemoveSceneResponse", &RemoveSceneResponse{}},
+						0x03: {"RemoveAllScenesResponse", &RemoveAllScenesResponse{}},
+						0x04: {"StoreSceneResponse", &StoreSceneResponse{}},
+						0x06: {"GetSceneMembershipResponse", &GetSceneMembershipResponse{}},
+						0x40: {"EnhancedAddSceneResponse", &EnhancedAddSceneResponse{}},
+						0x41: {"EnhancedViewSceneResponse", &EnhancedViewSceneResponse{}},
+						0x42: {"CopySceneResponse", &CopySceneResponse{}},
 					},
 				},
 			},

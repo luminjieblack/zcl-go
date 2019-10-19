@@ -198,3 +198,28 @@ type GetZoneStatusResponse struct {
 	ZoneID             []uint16
 	ZoneStatus         []uint16
 }
+
+type GetProfileInfoResponse struct {
+	ProfileCount          uint8
+	ProfileIntervalPeriod uint8
+	MaxNumberOfIntervals  uint8
+	ListOfAttributes      []uint16
+}
+
+type GetProfileInfoCommand struct {
+}
+
+type GetMeasurementProfileResponse struct {
+	StartTime                  uint32
+	Status                     uint8
+	ProfileIntervalPeriod      uint8
+	NumberOfIntervalsDelivered uint8
+	AttributeId                uint8
+	AttributeValues            []uint16
+}
+
+type GetMeasurementProfileCommand struct {
+	AttributeID       uint16
+	StartTime         uint32
+	NumberOfIntervals uint8
+}

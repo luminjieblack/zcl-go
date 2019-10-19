@@ -43,6 +43,7 @@ const (
 	PowerConfiguration             ClusterId = 0x0001
 	DeviceTemperatureConfiguration ClusterId = 0x0002
 	Identify                       ClusterId = 0x0003
+	Groups                         ClusterId = 0x0004
 	OnOff                          ClusterId = 0x0006
 	LevelControl                   ClusterId = 0x0008
 	Alarms                         ClusterId = 0x0009
@@ -171,6 +172,28 @@ func New() *ClusterLibrary {
 					},
 					Generated: map[uint8]*CommandDescriptor{
 						0x00: {"IdentifyQueryResponse ", &IdentifyQueryResponse{}},
+					},
+				},
+			},
+			Groups: {
+				Name: "Groups",
+				AttributeDescriptors: map[uint16]*AttributeDescriptor{
+					0x0000: {"NameSupport", ZclDataTypeBitmap8, Read},
+				},
+				CommandDescriptors: &CommandDescriptors{
+					Received: map[uint8]*CommandDescriptor{
+						0x00: {"AddGroup", &AddGroupCommand{}},
+						0x01: {"ViewGroup", &ViewGroupCommand{}},
+						0x02: {"GetGroupMembership", &GetGroupMembershipCommand{}},
+						0x03: {"RemoveGroup", &RemoveGroupCommand{}},
+						0x04: {"RemoveAllGroups", &RemoveAllGroupsCommand{}},
+						0x05: {"AddGroupIfIdentifying", &AddGroupIfIdentifyingCommand{}},
+					},
+					Generated: map[uint8]*CommandDescriptor{
+						0x00: {"AddGroupResponse", &AddGroupResponse{}},
+						0x01: {"ViewGroupResponse", &ViewGroupResponse{}},
+						0x02: {"GetGroupMembershipResponse", &GetGroupMembershipResponse{}},
+						0x03: {"RemoveGroupResponse", &RemoveGroupResponse{}},
 					},
 				},
 			},

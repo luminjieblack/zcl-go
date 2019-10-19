@@ -246,3 +246,50 @@ type GetAlarmResponse struct {
 	ClusterIdentifier uint16
 	TimeStamp         uint32
 }
+
+type AddGroupCommand struct {
+	GroupID   uint16
+	GroupName string
+}
+
+type ViewGroupCommand struct {
+	GroupID uint16
+}
+
+type GetGroupMembershipCommand struct {
+	GroupCount uint8
+	GroupList  []uint16
+}
+
+type RemoveGroupCommand struct {
+	GroupID uint16
+}
+
+type RemoveAllGroupsCommand struct{}
+
+type AddGroupIfIdentifyingCommand struct {
+	GroupID   uint16
+	GroupName string
+}
+
+type AddGroupResponse struct {
+	Status  uint8
+	GroupID uint16
+}
+
+type ViewGroupResponse struct {
+	Status    uint8
+	GroupID   uint16
+	GroupName string
+}
+
+type GetGroupMembershipResponse struct {
+	Capacity   uint8
+	GroupCount uint8
+	GroupList  []uint16
+}
+
+type RemoveGroupResponse struct {
+	Status  uint8
+	GroupID uint16
+}

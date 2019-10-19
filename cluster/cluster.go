@@ -53,6 +53,7 @@ const (
 	BinaryOutputBasic              ClusterId = 0x0010
 	MultistateInput                ClusterId = 0x0012
 	OTA                            ClusterId = 0x0019
+	PollControl                    ClusterId = 0x0020
 	IlluminanceMeasurement         ClusterId = 0x0400
 	IlluminanceLevelSensing        ClusterId = 0x0401
 	TemperatureMeasurement         ClusterId = 0x0402
@@ -369,6 +370,29 @@ func New() *ClusterLibrary {
 					0x0008: {"ImageTypeID ", ZclDataTypeUint16, Read},
 					0x0009: {"MinimumBlockPeriod ", ZclDataTypeUint16, Read},
 					0x000a: {"ImageStamp ", ZclDataTypeUint32, Read},
+				},
+			},
+			PollControl: {
+				Name: "PollControl",
+				AttributeDescriptors: map[uint16]*AttributeDescriptor{
+					0x0000: {"CheckInInterval", ZclDataTypeUint32, Read | Write},
+					0x0001: {"LongPollInterval", ZclDataTypeUint32, Read},
+					0x0002: {"ShortPollInterval", ZclDataTypeUint16, Read},
+					0x0003: {"FastPollTimeout", ZclDataTypeUint16, Read | Write},
+					0x0004: {"CheckInIntervalMin", ZclDataTypeUint32, Read},
+					0x0005: {"LongPollIntervalMin", ZclDataTypeUint32, Read},
+					0x0006: {"FastPollTimeoutMax", ZclDataTypeUint16, Read},
+				},
+				CommandDescriptors: &CommandDescriptors{
+					Received: map[uint8]*CommandDescriptor{
+						0x00: {"CheckIn", &CheckInCommand{}},
+					},
+					Generated: map[uint8]*CommandDescriptor{
+						0x00: {"CheckInResponse", &CheckInResponse{}},
+						0x01: {"FastPollStop", &FastPollStopCommand{}},
+						0x02: {"SetLongPollInterval", &SetLongPollIntervalCommand{}},
+						0x03: {"SetShortPollInterval", &SetShortPollIntervalCommand{}},
+					},
 				},
 			},
 			IlluminanceMeasurement: {

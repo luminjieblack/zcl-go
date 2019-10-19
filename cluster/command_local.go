@@ -407,3 +407,19 @@ type CopySceneResponse struct {
 	FromGroupID uint16
 	FromSceneID uint8
 }
+
+type CheckInCommand struct{}
+
+type CheckInResponse struct {
+	StartFastPolling bool
+	FastPollTimeout  uint16
+}
+type FastPollStopCommand struct{}
+
+type SetLongPollIntervalCommand struct {
+	NewLongPollInterval uint32
+}
+
+type SetShortPollIntervalCommand struct {
+	NewShortPollInterval uint32
+}

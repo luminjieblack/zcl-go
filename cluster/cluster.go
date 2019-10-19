@@ -45,6 +45,7 @@ const (
 	Identify                       ClusterId = 0x0003
 	OnOff                          ClusterId = 0x0006
 	LevelControl                   ClusterId = 0x0008
+	Alarms                         ClusterId = 0x0009
 	Time                           ClusterId = 0x000a
 	AnalogInputBasic               ClusterId = 0x000c
 	BinaryOutputBasic              ClusterId = 0x0010
@@ -213,6 +214,24 @@ func New() *ClusterLibrary {
 						0x05: {"Move/OnOff", &MoveOnOffCommand{}},
 						0x06: {"Step/OnOff", &StepOnOffCommand{}},
 						0x07: {"Stop/OnOff", &StopOnOffCommand{}},
+					},
+				},
+			},
+			Alarms: {
+				Name: "Alarms",
+				AttributeDescriptors: map[uint16]*AttributeDescriptor{
+					0x0000: {"AlarmCount", ZclDataTypeUint16, Read},
+				},
+				CommandDescriptors: &CommandDescriptors{
+					Received: map[uint8]*CommandDescriptor{
+						0x00: {"ResetAlarm", &ResetAlarmCommand{}},
+						0x01: {"ResetAllAlarms", &ResetAllAlarmsCommand{}},
+						0x02: {"GetAlarm", &GetAlarmCommand{}},
+						0x03: {"ResetAlarmLog", &ResetAlarmLogCommand{}},
+					},
+					Generated: map[uint8]*CommandDescriptor{
+						0x00: {"Alarm", &AlarmCommand{}},
+						0x01: {"GetAlarmResponse", &GetAlarmResponse{}},
 					},
 				},
 			},

@@ -223,3 +223,26 @@ type GetMeasurementProfileCommand struct {
 	StartTime         uint32
 	NumberOfIntervals uint8
 }
+
+type ResetAlarmCommand struct {
+	AlarmCode         uint8
+	ClusterIdentifier uint16
+}
+
+type ResetAllAlarmsCommand struct{}
+
+type GetAlarmCommand struct{}
+
+type ResetAlarmLogCommand struct{}
+
+type AlarmCommand struct {
+	AlarmCode         uint8
+	ClusterIdentifier uint16
+}
+
+type GetAlarmResponse struct {
+	Status            uint8
+	AlarmCode         uint8
+	ClusterIdentifier uint16
+	TimeStamp         uint32
+}

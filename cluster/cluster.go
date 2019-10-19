@@ -46,6 +46,8 @@ const (
 	OnOff                          ClusterId = 0x0006
 	LevelControl                   ClusterId = 0x0008
 	Time                           ClusterId = 0x000a
+	AnalogInputBasic               ClusterId = 0x000c
+	BinaryOutputBasic              ClusterId = 0x0010
 	MultistateInput                ClusterId = 0x0012
 	OTA                            ClusterId = 0x0019
 	IlluminanceMeasurement         ClusterId = 0x0400
@@ -229,6 +231,38 @@ func New() *ClusterLibrary {
 					0x0009: {"ValidUntilTime", ZclDataTypeUtc, Read | Write},
 				},
 			},
+			AnalogInputBasic: {
+				Name: "AnalogInputBasic",
+				AttributeDescriptors: map[uint16]*AttributeDescriptor{
+					0x001c: {"Description", ZclDataTypeCharStr, Read | Write},
+					0x0041: {"MaxPresentValue", ZclDataTypeSinglePrec, Read | Write},
+					0x0045: {"MinPresentValue", ZclDataTypeSinglePrec, Read | Write},
+					0x0050: {"OutOfService", ZclDataTypeBoolean, Read | Write},
+					0x0055: {"PresentValue", ZclDataTypeSinglePrec, Read | Write},
+					0x0067: {"Reliability", ZclDataTypeBitmap8, Read | Write},
+					0x006a: {"Resolution", ZclDataTypeSinglePrec, Read | Write},
+					0x006f: {"StatusFlags", ZclDataTypeBitmap8, Read},
+					0x0075: {"EngineeringUnits", ZclDataTypeEnum16, Read | Write},
+					0x0100: {"ApplicationType", ZclDataTypeUint32, Read},
+				},
+			},
+			BinaryOutputBasic: {
+				Name: "BinaryOutputBasic",
+				AttributeDescriptors: map[uint16]*AttributeDescriptor{
+					0x0004: {"ActiveText", ZclDataTypeCharStr, Read | Write},
+					0x001c: {"Description", ZclDataTypeCharStr, Read | Write},
+					0x002e: {"InactiveText", ZclDataTypeCharStr, Read | Write},
+					0x0042: {"MinimumOffTime", ZclDataTypeUint32, Read | Write},
+					0x0043: {"MaximumOffTime", ZclDataTypeUint32, Read | Write},
+					0x0051: {"OutOfService", ZclDataTypeBoolean, Read | Write},
+					0x0050: {"Polarity", ZclDataTypeEnum8, Read},
+					0x0055: {"PresentValue", ZclDataTypeBoolean, Read | Write},
+					0x0067: {"Reliability", ZclDataTypeBitmap8, Read | Write},
+					0x0068: {"RelinquishDefault", ZclDataTypeBoolean, Read | Write},
+					0x006f: {"StatusFlags", ZclDataTypeBitmap8, Read},
+					0x0100: {"ApplicationType", ZclDataTypeUint32, Read},
+				},
+			},
 			MultistateInput: {
 				Name: "MultistateInput",
 				AttributeDescriptors: map[uint16]*AttributeDescriptor{
@@ -259,7 +293,7 @@ func New() *ClusterLibrary {
 				},
 			},
 			IlluminanceMeasurement: {
-				Name: "Illuminance Measurement",
+				Name: "IlluminanceMeasurement",
 				AttributeDescriptors: map[uint16]*AttributeDescriptor{
 					0x0000: {"MeasuredValue", ZclDataTypeUint16, Read},
 					0x0001: {"MinMeasuredValue", ZclDataTypeUint16, Read},
@@ -269,7 +303,7 @@ func New() *ClusterLibrary {
 				},
 			},
 			IlluminanceLevelSensing: {
-				Name: "Illuminance Level Sensing",
+				Name: "IlluminanceLevelSensing",
 				AttributeDescriptors: map[uint16]*AttributeDescriptor{
 					0x0000: {"LevelStatus", ZclDataTypeEnum8, Read},
 					0x0001: {"LightSensorType", ZclDataTypeEnum8, Read},
@@ -277,7 +311,7 @@ func New() *ClusterLibrary {
 				},
 			},
 			TemperatureMeasurement: {
-				Name: "Temperature Measurement",
+				Name: "TemperatureMeasurement",
 				AttributeDescriptors: map[uint16]*AttributeDescriptor{
 					0x0000: {"MeasuredValue", ZclDataTypeInt16, Read},
 					0x0001: {"MinMeasuredValue", ZclDataTypeInt16, Read},
@@ -286,7 +320,7 @@ func New() *ClusterLibrary {
 				},
 			},
 			PressureMeasurement: {
-				Name: "Pressure Measurement",
+				Name: "PressureMeasurement",
 				AttributeDescriptors: map[uint16]*AttributeDescriptor{
 					0x0000: {"MeasuredValue", ZclDataTypeInt16, Read},
 					0x0001: {"MinMeasuredValue", ZclDataTypeInt16, Read},
@@ -300,7 +334,7 @@ func New() *ClusterLibrary {
 				},
 			},
 			FlowMeasurement: {
-				Name: "Flow Measurement",
+				Name: "FlowMeasurement",
 				AttributeDescriptors: map[uint16]*AttributeDescriptor{
 					0x0000: {"MeasuredValue", ZclDataTypeUint16, Read},
 					0x0001: {"MinMeasuredValue", ZclDataTypeUint16, Read},
@@ -309,7 +343,7 @@ func New() *ClusterLibrary {
 				},
 			},
 			RelativeHumidityMeasurement: {
-				Name: "Relative Humidity Measurement",
+				Name: "RelativeHumidityMeasurement",
 				AttributeDescriptors: map[uint16]*AttributeDescriptor{
 					0x0000: {"MeasuredValue", ZclDataTypeUint16, Read},
 					0x0001: {"MinMeasuredValue", ZclDataTypeUint16, Read},
@@ -318,7 +352,7 @@ func New() *ClusterLibrary {
 				},
 			},
 			OccupancySensing: {
-				Name: "Occupancy Sensing",
+				Name: "OccupancySensing",
 				AttributeDescriptors: map[uint16]*AttributeDescriptor{
 					0x0000: {"Occupancy", ZclDataTypeBitmap8, Read},
 					0x0001: {"OccupancySensorType", ZclDataTypeEnum8, Read},
@@ -331,7 +365,7 @@ func New() *ClusterLibrary {
 				},
 			},
 			ElectricalMeasurement: {
-				Name: "Electrical Measurement",
+				Name: "ElectricalMeasurement",
 				AttributeDescriptors: map[uint16]*AttributeDescriptor{
 					0x0000: {"MeasurementType", ZclDataTypeBitmap32, Read},
 
@@ -489,7 +523,7 @@ func New() *ClusterLibrary {
 				},
 			},
 			IASZone: {
-				Name: "IAS Zone",
+				Name: "IASZone",
 				AttributeDescriptors: map[uint16]*AttributeDescriptor{
 					0x0000: {"ZoneState", ZclDataTypeEnum8, Read},
 					0x0001: {"ZoneType", ZclDataTypeEnum16, Read},
@@ -512,7 +546,7 @@ func New() *ClusterLibrary {
 				},
 			},
 			IASACE: {
-				Name: "IAS Ancillary Control Equipment",
+				Name: "IASAncillaryControlEquipment",
 				CommandDescriptors: &CommandDescriptors{
 					Received: map[uint8]*CommandDescriptor{
 						0x00: {"Arm", &ArmCommand{}},
@@ -540,7 +574,7 @@ func New() *ClusterLibrary {
 				},
 			},
 			IASWarningDevice: {
-				Name: "IAS Warning Device",
+				Name: "IASWarningDevice",
 				AttributeDescriptors: map[uint16]*AttributeDescriptor{
 					0x0000: {"MaxDuration", ZclDataTypeUint16, Read | Write},
 				},

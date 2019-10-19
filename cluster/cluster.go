@@ -53,7 +53,7 @@ const (
 	PressureMeasurement            ClusterId = 0x0403
 	FlowMeasurement                ClusterId = 0x0404
 	RelativeHumidityMeasurement    ClusterId = 0x0405
-	OccupancySensing               ClusterId = 0x406
+	OccupancySensing               ClusterId = 0x0406
 	ElectricalMeasurement          ClusterId = 0x0b04
 	IASZone                        ClusterId = 0x0500
 	IASACE                         ClusterId = 0x0501

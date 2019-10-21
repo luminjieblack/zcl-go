@@ -423,3 +423,112 @@ type SetLongPollIntervalCommand struct {
 type SetShortPollIntervalCommand struct {
 	NewShortPollInterval uint32
 }
+
+type MoveToHueCommand struct {
+	Hue            uint8
+	Direction      uint8
+	TransitionTime uint16
+}
+
+type MoveHueCommand struct {
+	MoveMode uint8
+	Rate     uint8
+}
+
+type StepHueCommand struct {
+	StepMode       uint8
+	StepSize       uint8
+	TransitionTime uint8
+}
+
+type MoveToSaturationCommand struct {
+	Saturation     uint8
+	TransitionTime uint16
+}
+
+type MoveSaturationCommand struct {
+	MoveMode uint8
+	Rate     uint8
+}
+
+type StepSaturationCommand struct {
+	StepMode       uint8
+	StepSize       uint8
+	TransitionTime uint8
+}
+
+type MoveToHueAndSaturationCommand struct {
+	Hue            uint8
+	Saturation     uint8
+	TransitionTime uint16
+}
+
+type MoveToColorCommand struct {
+	ColorX         uint16
+	ColorY         uint16
+	TransitionTime uint16
+}
+
+type MoveColorCommand struct {
+	RateX int16
+	RateY int16
+}
+
+type StepColorCommand struct {
+	RateX          int16
+	RateY          int16
+	TransitionTime uint16
+}
+
+type MoveToColorTemperatureCommand struct {
+	ColorTemperatureMireds uint16
+	TransitionTime         uint16
+}
+
+type EnhancedMoveToHueCommand struct {
+	EnhancedHue    uint16
+	Direction      uint8
+	TransitionTime uint16
+}
+
+type EnhanceMoveHueCommand struct {
+	MoveMode uint8
+	Rate     uint16
+}
+
+type EnhancedStepHueCommand struct {
+	StepMode       uint8
+	StepSize       uint8
+	TransitionTime uint16
+}
+
+type EnhancedMoveToHueAndSaturationCommand struct {
+	EnhancedHue    uint16
+	Saturation     uint8
+	TransitionTime uint16
+}
+
+type ColorLoopSetCommand struct {
+	UpdateFlags uint8
+	Action      uint8
+	Direction   uint8
+	Time        uint16
+	StartHue    uint16
+}
+
+type StopMoveStepCommand struct{}
+
+type MoveColorTemperatureCommand struct {
+	MoveMode               uint8
+	Rate                   uint16
+	ColorTempMinimumMireds uint16
+	ColorTempMaximumMireds uint16
+}
+
+type StepColorTemperatureCommand struct {
+	StepMode               uint8
+	StepSize               uint16
+	TransitionTime         uint16
+	ColorTempMinimumMireds uint16
+	ColorTempMaximumMireds uint16
+}
